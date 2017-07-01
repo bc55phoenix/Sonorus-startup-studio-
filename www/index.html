@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script> -->
+
+
+    <!-- compiled css output -->
+    <!-- <link href="css/ionic.app.css" rel="stylesheet"> -->
+     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
+" rel="stylesheet">
+    <!-- <link href="css/animate.css" rel="stylesheet"> -->
+    <!-- <link href="css/ionic-animated-modal.css" rel="stylesheet"> -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script> -->
+
+<!-- <script src="lib/angular-animate/angular-animate.js"></script> -->
+
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/cordova.js"></script>
+<script type="text/javascript" src="js/speechcapture.js"></script>
+<!-- <script type="text/javascript" src="speechcapture-demo.js"></script> -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="js/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter">
+
+    <ion-pane>
+
+      <ion-header-bar class="bar-stable" style="background: rgba(0,0,0,0);">
+        <!-- <h1 class="title">Sonorus</h1> -->
+        <img src='img/sonorus2.png' class="title-image" style="max-width:45%; padding-top:10%; padding-left:2%; padding-right:2%; margin: auto;"/>
+      </ion-header-bar>
+      <ion-content id = "container"ng-controller="ExampleController">
+      
+        <!-- <img id="img" src="img/n1.png"> -->
+        <div id="img" style="margin-top:38%;">
+           
+          <input id="happy" type="radio" name="smiley" value="Happy" style="display:none;">
+              <input id="normal" type="radio" name="smiley" value="Normal" style="display:none;"checked>
+              <input id="angry" type="radio" name="smiley" value="Angry" style="display:none;">
+
+         <div class="smiley">
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="mouth"></div>
+        </div> 
+      </div>
+        <p id="webAud">hi</p>
+        <div id="tempo">138</div>
+        <!-- <img id="myBtn" src="img/recordButton2.png"> -->
+        <div id="rect" style="width: 100%; height: 100%; background-color: #510c04;   z-index: -2; position: absolute; opacity:0;">  </div>
+        <canvas id="canvas"></canvas> 
+          <!-- <button ion-button class="button button-secondary" ng-click="startSpeechCapture()" style="margin-left: 12%; padding-left:3%;" id="startCapture">Start capture</button> -->
+        </br></br></br></br></br></br></br> </br></br></br> 
+          <a href="db.html"  style="text-decoration:none; ">
+          <!-- <a href="db.html" style="margin-left:31%;"> -->
+              <button ion-button id = "dbElem" class="button button-assertive button-block button-light" style="width:97%;margin-right:1%;margin-left:1.5%; opacity:0;margin-top:5%;display:inline;" id="stopCapture">Show me my results!  <i class="icon ion-arrow-graph-up-right "></i> </button>
+          </a>
+        
+          <button ion-button class="button button-outline button-block button-light" ng-click="startSpeechCapture()" style="width:97%;margin-right:1%;margin-left:1.5%; display:inline;" id="startCapture">Record  <i class="icon ion-record"></i></button>
+          <button ion-button class="button button-outline button-block button-light" ng-click="stopSpeechCapture()" style="width:97%;margin-right:1%;margin-left:1.5%; display:none;" id="stopCapture">Stop  <i class="icon ion-stop"></i> </button>
+          <!-- <div id ="send" ng-click="sendRequest()"></div> -->
+
+
+          <!-- <div id="webAud">gyujgbj</div> -->
+          
+          <div id="speakingRightNow" style="position: absolute; margin-top:30%;top: 5px; right: 5px; color: red">-</div>
+
+
+
+          <div style="display:none;">
+              
+          
+              <div id="array"></div>
+              <div id="content"></div>
+              <div id="level"></div>
+              <div id="audInpError"></div>
+                    <label for="speechThreshold">Speech Threshold (db)</label>
+                    <input id="speechThreshold" class="w3-input" type="number" value="0" size="5"/>
+                    <label for="speechAllowedDelay">Allowed Delay (ms)</label>
+                    <input id="speechAllowedDelay" class="w3-input" type="number" value="900" size="5"/>
+                    <label for="minSpeechLength">Min Speech Length (ms)</label>
+                    <input id="minSpeechLength" class="w3-input" type="number" value="100" size="5"/>
+                    <label for="maxSpeechLength">Max Speech Length (ms)</label>
+                    <input id="maxSpeechLength" class="w3-input" type="number" value="3000" size="5"/>
+                    <label for="sampleRate">sampleRate (Hz)</label>
+                    <input id="sampleRate" class="w3-input" type="number" value="44100" size="5"/>
+                    <label for="bufferSize">BufferSize (bytes)</label>
+                    <input id="bufferSize" class="w3-input" type="number" value="16384" size="5"/>
+                    <label for="analysisChunkLength">Chunk Length (ms)</label>
+                    <input id="analysisChunkLength" class="w3-input" type="number" value="100" size="5"/>
+                    <label for="detectOnly">Detection Only</label>
+                    <select id="detectOnly" class="w3-input">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <label for="compressPauses">Compress Pauses</label>
+                    <select id="compressPauses" class="w3-input">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                     <div id="infoMessage"
+                 class="w3-container w3-section w3-pale-green w3-bottombar w3-border-green w3-border w3-small">
+                Not ready
+            </div>
+                                          <label for="audioSource">Audio Source (Cordova only)</label>
+                    <select id="audioSource" class="w3-input">
+                        <option value="0">DEFAULT (Android/iOS)</option>
+                        <option value="5">CAMCORDER (Android/iOS)</option>
+                        <option value="9">UNPROCESSED (Android/iOS)</option>
+                        <option value="7">VOICE_COMMUNICATION (Android/iOS)</option>
+                        <option value="1">MIC (Android)</option>
+                        <option value="6">VOICE_RECOGNITION (Android)</option>
+                    </select>
+                    <label for="preferGUM">Prefer GetUserMedia</label>
+                    <select id="preferGUM" class="w3-input">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                                        <div id="recording-list" class="w3-section w3-border-green w3-border margin-5 w3-small"
+                         style="word-break: break-all;">...Captured speech will show up here...
+                    </div>
+            <div id="infoTimer" class="w3-container w3-section w3-border-green w3-border w3-small"></div>
+                <div id="status-list" class="w3-section w3-border-green w3-border margin-5 w3-small"
+                     style="word-break: break-all;">...Debug info will show up here...
+                </div>
+
+                </div>
+      </ion-content>
+    </ion-pane>   
+  </body>
+</html>

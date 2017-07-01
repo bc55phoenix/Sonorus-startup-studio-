@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Analytics Dashboard</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!--  un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style2.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+
+
+
+    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:700, 600,500,400,300'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- for progress bar -->
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    <!-- jquery for trigger ?? -->
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <!-- haven't tried ionic,highchart,data/js -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
+    <!-- <script src="main.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+
+  </head>
+
+
+
+  <body ng-app="starter">
+<!-- <ion-pane>
+    <ion-view>
+   <ion-content overflow-scroll="true"> -->
+<!--         <div class="list">
+            <a ng-repeat="item in items" class="item" href="#">
+                <h2>{{item.name}}</h2>
+            </a>
+        </div> -->
+
+
+
+<div class="bar bar-header bar-royal">
+  <h1 class="title">Performance Matrics</h1>
+</div>
+
+<ion-scroll zooming="true" direction="y" style="width: 100%; height: 736px"> 
+<!-- iphone  6s plus-->
+
+  <div class="main-content">
+
+      <div class="main">
+
+      <!-- later shoule be turned into javascript +
+      width could be more than 100% if it exeeds standard - transparent front bar -->
+        <div class="widget2">
+          <div class="title">Clarity</div>
+          <div class="ProgressBar">
+              <div class="w3-light-grey">
+              <div class="w3-container w3-khaki w3-padding w3-center" style="width:75%">75%</div>
+              </div>
+          </div>
+        </div>
+
+         <div class="widget2">
+           <div class="title">Uptalk</div>
+             <div class="ProgressBar">
+                 <div class="w3-light-grey">
+                 <div class="w3-container w3-khaki w3-padding w3-center" style="width:75%">10</div>
+                 </div>
+             </div>
+          </div>
+
+          <div class="widget2">
+            <div class="title">WPM</div>
+                <div class="ProgressBar">
+                    <div class="w3-light-grey">
+                    <div class="w3-container w3-khaki w3-padding w3-center" style="width:95%">120</div>
+                    </div>
+                </div>
+           </div>
+
+           <div class="widget2">
+             <div class="title">Pause</div>
+                 <div class="ProgressBar">
+                     <div class="w3-light-grey">
+                     <div class="w3-container w3-khaki w3-padding w3-center" style="width:65%">11</div>
+                     </div>
+                 </div>
+            </div>
+
+
+        <div class="widget1">
+          <div class="title">Number of Fillers</div>
+          <!-- <div class="chart"></div> -->
+          <canvas id="fillers" width="500px" height="250px"> </canvas>
+              <script type="text/javascript">
+              var barData = {
+                  labels: ['um', 'ah', 'uh', 'mm', 'basically', 'literally', 'sorry','well','you know'],
+                  datasets: [
+                      {
+                          label: 'Selected Fillers',
+                          backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                          data: [10,4,6,2,5,9,4,15,10]
+                      }
+                  ]
+              };
+
+              var fillersChartOptions = {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }};
+
+              var context = document.getElementById('fillers').getContext('2d');
+              // var fillersChart = new Chart(context).Bar(barData);
+              var fillersChart = new Chart(context, {
+              type: 'bar',
+              data: barData,
+              options: fillersChartOptions
+              });
+              </script>
+         </div>
+
+
+
+         <div class="widget1">
+           <div class="title">Fillers in Scripts</div>
+              <div style="width:100%; height:160px; padding:5px;overflow:auto;">
+                 <table border="3px" cellspacing="0" width="100%" height="200px" class="front">
+                     <tr>
+                         <!-- <td></td> -->
+                      <td>
+                         <!-- <td width="500px" -->
+<!--                            <p style="border:3px; padding: 1em;">
+                             <mark>Um</mark> For many people, public speaking is <mark>well</mark> scarier than spiders, heights, and even death...but business dose not care. In business, captivating your audience is critical to getting that job or landing that deal.
+                             </br>
+                             <br>Using real-time speech analysis in a fun, simulated practice environment,   <mark>uh</mark> <mark>basically</mark> Sonorus equips business students and professionals with the confidence to become compelling communicators.
+                             </br>
+                           </br>
+                             For many people, public speaking is scarier than spiders, heights, and even death...but business dose not care. <mark>Um</mark> in business, captivating your audience is critical to getting that job or landing that deal.
+                             </br>
+                             <br>Using real-time speech analysis in a fun, simulated practice environment,  Sonorus equips business students and professionals with the confidence to become compelling communicators.
+                             <br>
+                             <br>...
+                           </p> -->
+
+                           <p style="border:3px; padding: 1em;">
+                                         
+                                  <mark>Oh</mark> <mark>so</mark> the market <mark>um </mark> size for Sonorus is <mark>uh</mark>, <mark>basically</mark>2.5 billion dollars.  </br></br>
+
+                                  The <mark>uh</mark> market size for uh Sonorus is 2.5 billion dollars. </br></br>
+
+                                  The market size for Sonorus is 2.5 billion dollars. </br>
+                                                                           </br>
+                                   … </br>
+                            </p>
+                       </td>
+                         <!-- <td></td> -->
+                      </tr>
+                 </table>
+              </div>
+        </div>
+
+
+        <div class="widget1">
+          <div class="title">Pitch Variety</div>
+          <!-- <div class="chart"></div> -->
+          <canvas id="pitch" width="500px" height="250px"> </canvas>
+              <script type="text/javascript">
+              var barData = {
+                  labels: ['80', '85', '90', '95', '100', '105', '110', '115', '120', '125', '130', '135', '140', '145', '150', '155'],
+                  datasets: [
+                      {
+                          label: 'Pitch (Hz)',
+                          backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                          data: [10,4,6,2,5,9,4,15,10,5,9,4,15,10,10,9]
+                      }
+                  ]
+              };
+
+              var fillersChartOptions = {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }],
+              xAxes: [{
+                barPercentage: 1.0,
+                categoryPercentage: 1.0
+              }]
+              }
+              };
+
+              var context = document.getElementById('pitch').getContext('2d');
+              // var fillersChart = new Chart(context).Bar(barData);
+              var fillersChart = new Chart(context, {
+              type: 'bar',
+              data: barData,
+              options: fillersChartOptions
+              });
+              </script>
+         </div>
+
+
+                <div class="widget1">
+                  <div class="title">Volume Variety</div>
+                  <!-- <div class="chart"></div> -->
+                  <canvas id="volume" width="500px" height="250px"> </canvas>
+                      <script type="text/javascript">
+                      var barData = {
+                          labels: ['40', '45', '50', '55', '60', '65', '70', '75', '80', '85'],
+                          datasets: [
+                              {
+                                  label: 'Volume (dB)',
+                                  backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                                  data: [10,4,6,2,5,9,4,15,10,5]
+                              }
+                          ]
+                      };
+
+                      var fillersChartOptions = {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero:true
+                              }
+                          }],
+                      xAxes: [{
+                        barPercentage: 1.0,
+                        categoryPercentage: 1.0
+                      }]
+                      }
+                      };
+
+                      var context = document.getElementById('volume').getContext('2d');
+                      // var fillersChart = new Chart(context).Bar(barData);
+                      var fillersChart = new Chart(context, {
+                      type: 'bar',
+                      data: barData,
+                      options: fillersChartOptions
+                      });
+                      </script>
+                 </div>
+       </div>
+</div>
+
+<!-- <div class="tabs-striped tabs-color-assertive">
+  <div class="tabs">
+    <a class="tab-item active" href="#">
+      <i class="icon ion-home"></i>
+      测试
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-star"></i>
+      收藏
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-gear-a"></i>
+      设置
+    </a>
+  </div>
+</div> -->
+
+<!--     <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">Analytics Dashboard</h1>
+      </ion-header-bar>
+
+ -->
+<!-- 
+      <ion-content>
+      </ion-content>
+    </ion-pane>
+ -->
+
+
+ </ion-scroll>
+<!--     </ion-content>
+</ion-view>
+</ion-pane> -->
+  </body>
+</html>
